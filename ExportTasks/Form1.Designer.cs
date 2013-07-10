@@ -100,6 +100,7 @@
             this.taskList.Size = new System.Drawing.Size(760, 490);
             this.taskList.TabIndex = 7;
             this.taskList.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.taskList_MouseDown);
+            this.taskList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.taskList_KeyDown);
             // 
             // index
             // 

@@ -18,11 +18,11 @@ namespace ExportTasks
         public LoadingScreen loadingWindow;
         public Form1()
         {
-            
             Thread loadingThread = new Thread(new ThreadStart(loadingScreen));
             loadingThread.Start();
             InitializeComponent();
             retrieveTasks();
+            taskList.Focus();
             loadingThread.Abort();
             CenterToScreen();
         }
@@ -368,7 +368,7 @@ namespace ExportTasks
                     row.Cells[6].Value = "Taak voltooid";
                     row.DefaultCellStyle.BackColor = Color.YellowGreen;
                 }
-                if (row.Cells[6].Value == "Wacht op klant")
+                if ((string)row.Cells[6].Value == "Wacht op klant")
                 {
                     row.DefaultCellStyle.BackColor = Color.Red;
                 }
@@ -379,6 +379,24 @@ namespace ExportTasks
         {
             taskList.Sort(this.taskSubject, ListSortDirection.Ascending);
             taskList.Sort(this.hiddenDate, ListSortDirection.Ascending);
+        }
+
+        private void taskList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                foreach(DataGridViewCell cell in taskList.SelectedCells)
+                {
+                    cell.Value = "";
+                }
+            }
+            if (e.KeyCode == Keys.Control)
+            {
+                if (e.KeyCode == Keys.Z)
+                {
+
+                }
+            }
         }
     }
 }

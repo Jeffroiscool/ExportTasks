@@ -67,10 +67,11 @@
             this.Controls.Add(this.taskName);
             this.Controls.Add(this.loadingLabel);
             this.Controls.Add(this.taskLoadingProgress);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "LoadingScreen";
             this.ShowIcon = false;
-            this.ShowInTaskbar = false;
             this.Text = "Loading Tasklist";
+            this.UseWaitCursor = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
