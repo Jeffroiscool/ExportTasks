@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using Microsoft.Office.Interop.Outlook;
@@ -14,10 +15,22 @@ namespace ExportTasks
 {
     public partial class Form1 : Form
     {
+        public LoadingScreen loadingWindow;
         public Form1()
         {
+            
+            Thread loadingThread = new Thread(new ThreadStart(loadingScreen));
+            loadingThread.Start();
             InitializeComponent();
             retrieveTasks();
+            loadingThread.Abort();
+            CenterToScreen();
+        }
+
+        private void loadingScreen()
+        {
+            loadingWindow = new LoadingScreen();
+            System.Windows.Forms.Application.Run(loadingWindow);
         }
 
         private void retrieveTasks()
@@ -44,7 +57,7 @@ namespace ExportTasks
                 //Get the taskfolder containing the Outlook tasks
                 outlookStore = ns.GetDefaultFolder(Microsoft.Office.Interop.Outlook.OlDefaultFolders.olFolderInbox).Store;
                 taskFolder = outlookStore.GetSpecialFolder(OlSpecialFolders.olSpecialFolderAllTasks);
-
+                loadingWindow.UpdateMaxValue(taskFolder.Items.Count);
                 for (int i = 1; i <= taskFolder.Items.Count; i++)
                 {
                     //Get task from taskfolder
@@ -66,6 +79,9 @@ namespace ExportTasks
 
                             string percentComplete = mail.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/id/{00062003-0000-0000-C000-000000000046}/81020005").ToString("0%");
                             string taskStatus = statusToFriendlyName(mail.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/id/{00062003-0000-0000-C000-000000000046}/81010003").ToString(), 1);
+
+                            Console.WriteLine(mail.TaskSubject);
+                            loadingWindow.UpdateCurrentTask(mail.TaskSubject, i);
 
                             string parsedDate = "";
                             if (mail.TaskStartDate.ToString() == "1-1-4501 00:00:00")
@@ -95,6 +111,7 @@ namespace ExportTasks
                     {
                         task = (Outlook.TaskItem)item;
                         Console.WriteLine(task.Subject);
+                        loadingWindow.UpdateCurrentTask(task.Subject, i);
                         if (task.Complete == false)
                         {
                             string taskPrio = "";

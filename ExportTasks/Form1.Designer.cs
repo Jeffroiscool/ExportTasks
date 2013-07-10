@@ -36,13 +36,6 @@
             this.retrieveItems = new System.Windows.Forms.Button();
             this.createEmail = new System.Windows.Forms.Button();
             this.taskList = new System.Windows.Forms.DataGridView();
-            this.taskContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.yellowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.blauwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.index = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hiddenDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.taskSubject = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +44,13 @@
             this.taskProgress = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.taskStatus = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.taskPriority = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taskContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.yellowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blauwToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortByDate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.taskList)).BeginInit();
             this.taskContextMenu.SuspendLayout();
@@ -96,61 +96,10 @@
             this.taskPriority});
             this.taskList.Location = new System.Drawing.Point(12, 12);
             this.taskList.Name = "taskList";
+            this.taskList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.taskList.Size = new System.Drawing.Size(760, 490);
             this.taskList.TabIndex = 7;
             this.taskList.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.taskList_MouseDown);
-            // 
-            // taskContextMenu
-            // 
-            this.taskContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.yellowToolStripMenuItem,
-            this.greenToolStripMenuItem,
-            this.redToolStripMenuItem,
-            this.blauwToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.deleteToolStripMenuItem});
-            this.taskContextMenu.Name = "taskContextMenu";
-            this.taskContextMenu.Size = new System.Drawing.Size(110, 120);
-            // 
-            // yellowToolStripMenuItem
-            // 
-            this.yellowToolStripMenuItem.Name = "yellowToolStripMenuItem";
-            this.yellowToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.yellowToolStripMenuItem.Text = "Yellow";
-            this.yellowToolStripMenuItem.Click += new System.EventHandler(this.markYellow_Click);
-            // 
-            // greenToolStripMenuItem
-            // 
-            this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
-            this.greenToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.greenToolStripMenuItem.Text = "Green";
-            this.greenToolStripMenuItem.Click += new System.EventHandler(this.markGreen_Click);
-            // 
-            // redToolStripMenuItem
-            // 
-            this.redToolStripMenuItem.Name = "redToolStripMenuItem";
-            this.redToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.redToolStripMenuItem.Text = "Red";
-            this.redToolStripMenuItem.Click += new System.EventHandler(this.markRed_Click);
-            // 
-            // blauwToolStripMenuItem
-            // 
-            this.blauwToolStripMenuItem.Name = "blauwToolStripMenuItem";
-            this.blauwToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.blauwToolStripMenuItem.Text = "Blue";
-            this.blauwToolStripMenuItem.Click += new System.EventHandler(this.markBlue_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(106, 6);
-            // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // index
             // 
@@ -217,6 +166,58 @@
             this.taskPriority.FillWeight = 104.8223F;
             this.taskPriority.HeaderText = "Priority";
             this.taskPriority.Name = "taskPriority";
+            // 
+            // taskContextMenu
+            // 
+            this.taskContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.yellowToolStripMenuItem,
+            this.greenToolStripMenuItem,
+            this.redToolStripMenuItem,
+            this.blauwToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.deleteToolStripMenuItem});
+            this.taskContextMenu.Name = "taskContextMenu";
+            this.taskContextMenu.Size = new System.Drawing.Size(110, 120);
+            // 
+            // yellowToolStripMenuItem
+            // 
+            this.yellowToolStripMenuItem.Name = "yellowToolStripMenuItem";
+            this.yellowToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.yellowToolStripMenuItem.Text = "Yellow";
+            this.yellowToolStripMenuItem.Click += new System.EventHandler(this.markYellow_Click);
+            // 
+            // greenToolStripMenuItem
+            // 
+            this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
+            this.greenToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.greenToolStripMenuItem.Text = "Green";
+            this.greenToolStripMenuItem.Click += new System.EventHandler(this.markGreen_Click);
+            // 
+            // redToolStripMenuItem
+            // 
+            this.redToolStripMenuItem.Name = "redToolStripMenuItem";
+            this.redToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.redToolStripMenuItem.Text = "Red";
+            this.redToolStripMenuItem.Click += new System.EventHandler(this.markRed_Click);
+            // 
+            // blauwToolStripMenuItem
+            // 
+            this.blauwToolStripMenuItem.Name = "blauwToolStripMenuItem";
+            this.blauwToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.blauwToolStripMenuItem.Text = "Blue";
+            this.blauwToolStripMenuItem.Click += new System.EventHandler(this.markBlue_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(106, 6);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // sortByDate
             // 
