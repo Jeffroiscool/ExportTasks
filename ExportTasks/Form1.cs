@@ -18,12 +18,9 @@ namespace ExportTasks
         public LoadingScreen loadingWindow;
         public Form1()
         {
-            Thread loadingThread = new Thread(new ThreadStart(loadingScreen));
-            loadingThread.Start();
+            
             InitializeComponent();
             retrieveTasks();
-            taskList.Focus();
-            loadingThread.Abort();
             CenterToScreen();
         }
 
@@ -35,7 +32,8 @@ namespace ExportTasks
 
         private void retrieveTasks()
         {
-
+            Thread loadingThread = new Thread(new ThreadStart(loadingScreen));
+            loadingThread.Start();
             //Clear datagrid so we won't have duplicate information
             taskList.Rows.Clear();
 
@@ -80,7 +78,6 @@ namespace ExportTasks
                             string percentComplete = mail.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/id/{00062003-0000-0000-C000-000000000046}/81020005").ToString("0%");
                             string taskStatus = statusToFriendlyName(mail.PropertyAccessor.GetProperty("http://schemas.microsoft.com/mapi/id/{00062003-0000-0000-C000-000000000046}/81010003").ToString(), 1);
 
-                            Console.WriteLine(mail.TaskSubject);
                             loadingWindow.UpdateCurrentTask(mail.TaskSubject, i);
 
                             string parsedDate = "";
@@ -110,7 +107,6 @@ namespace ExportTasks
                     else if (item is Outlook.TaskItem)
                     {
                         task = (Outlook.TaskItem)item;
-                        Console.WriteLine(task.Subject);
                         loadingWindow.UpdateCurrentTask(task.Subject, i);
                         if (task.Complete == false)
                         {
@@ -168,6 +164,8 @@ namespace ExportTasks
 
             taskList.Sort(this.taskSubject, ListSortDirection.Ascending);
             taskList.Sort(this.hiddenDate, ListSortDirection.Ascending);
+            taskList.Focus();
+            loadingThread.Abort();
             autoColor();
         }
 
@@ -273,7 +271,6 @@ namespace ExportTasks
             }
 
             string fullHTML = tableHeader + tableContent + "</table>";
-            Console.WriteLine(fullHTML);
             return fullHTML; 
         }
 
@@ -360,11 +357,9 @@ namespace ExportTasks
         {
             foreach (DataGridViewRow row in taskList.Rows)
             {
-                Console.WriteLine(row.Cells[5].Value);
                 string percentComplete = checkForNull((string)row.Cells[5].Value);
                 if (percentComplete.StartsWith("99"))
                 {
-                    Console.WriteLine("LOL");
                     row.Cells[6].Value = "Taak voltooid";
                     row.DefaultCellStyle.BackColor = Color.YellowGreen;
                 }
